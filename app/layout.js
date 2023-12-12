@@ -1,6 +1,6 @@
-import "./css/globals.css";
-import "./css/reset.css";
-import "./css/style.scss";
+import "@/app/css/globals.css";
+import "@/app/css/reset.css";
+import "@/app/css/style.scss";
 
 export const metadata = {
   title: "ZARADA",

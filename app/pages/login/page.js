@@ -1,9 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import axios from "axios";
 import { useRef } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import img_logoLogin from "@/public/images/logo-login.png";
 
 export default function Login() {
   const router = useRouter();
@@ -57,11 +59,7 @@ export default function Login() {
     <div className="login-template">
       <div className="login-page">
         <h2 className="login-tit">
-          <img
-            src="../images/logo-login.png"
-            title="logo-login"
-            alt="logo-login"
-          />
+          <Image src={img_logoLogin} />
         </h2>
         <div className="login-form">
           <div className="input-area">
