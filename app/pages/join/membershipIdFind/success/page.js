@@ -8,11 +8,7 @@ export default function Success() {
   const [findId, setFindId] = useState("");
 
   useEffect(() => {
-    setFindId(localStorage.getItem("findId"));
-
-    setTimeout(() => {
-      localStorage.removeItem("findId");
-    }, 1000);
+    setFindId(localStorage.getItem("findId") ? localStorage.getItem("findId") : "");
   }, []);
 
   return (
