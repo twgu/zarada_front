@@ -1,5 +1,5 @@
-import "@/app/css/globals.css";
 import "@/app/css/reset.css";
+import "@/app/css/style.css";
 import "@/app/css/style.scss";
 
 export const metadata = {
@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
   return (
     <html>
       <body>
-        <div className={"app-template"}>{children}</div>
+        <div className="app-template">{children}</div>
       </body>
     </html>
   );
