@@ -19,7 +19,7 @@ export default function App() {
     <div className="login-template">
       <div className="intro-page">
         <div className="intro-character">
-          <Image src={img_intro} />
+          <Image src={img_intro} alt="intro" priority />
         </div>
         <p className="intro-copyright">
           Copyright 2023. DAI inc. all rights reserved.

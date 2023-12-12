@@ -59,7 +59,7 @@ export default function Login() {
     <div className="login-template">
       <div className="login-page">
         <h2 className="login-tit">
-          <Image src={img_logoLogin} />
+          <Image src={img_logoLogin} alt="logo-login" priority />
         </h2>
         <div className="login-form">
           <div className="input-area">
