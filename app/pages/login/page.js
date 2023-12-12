@@ -45,12 +45,12 @@ export default function Login() {
         // 사용자 구분에 따라 라우팅
         if (response.data.userCl == "N") {
           if (response.data.loginCount == 0) {
-            router.push(`/pages/login/introSlide/`, { scroll: false });
+            router.push(`/pages/login/introSlide`, { scroll: false });
           } else {
-            router.push(`/pages/home/user/`, { scroll: false });
+            router.push(`/pages/home/user`, { scroll: false });
           }
         } else {
-          router.push(`/pages/home/admin/`, { scroll: false });
+          router.push(`/pages/home/admin`, { scroll: false });
         }
       })
       .catch((error) => {
@@ -120,21 +120,21 @@ export default function Login() {
         </div>
         <div className="login-link-area">
           <Link
-            href="/pages/join/membershipIdFind/"
+            href="/pages/join/membershipIdFind"
             className="login-link"
             scroll={false}
           >
             아이디 찾기
           </Link>
           <Link
-            href="/pages/join/membershipPwFind/"
+            href="/pages/join/membershipPwFind"
             className="login-link center"
             scroll={false}
           >
             비밀번호 찾기
           </Link>
           <Link
-            href="/pages/join/membershipJoin/first/"
+            href="/pages/join/membershipJoin/first"
             className="login-link"
             scroll={false}
           >

@@ -63,9 +63,9 @@ export default function MembershipIdFind() {
       })
       .then((response) => {
         if (response.data == "") {
-          router.push("/pages/join/membershipIdFind/fail/", { scroll: false });
+          router.push("/pages/join/membershipIdFind/fail", { scroll: false });
         } else {
-          router.push("/pages/join/membershipIdFind/success/", {
+          router.push("/pages/join/membershipIdFind/success", {
             scroll: false,
           });
         }

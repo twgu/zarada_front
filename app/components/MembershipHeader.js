@@ -10,13 +10,13 @@ export default function MembershipHeader(props) {
   const backPageControll = () => {
     switch (props.nowPage) {
       case "MembershipIdFind": //아이디 찾기
-        router.push(`/pages/login/`, { scroll: false });
+        router.push(`/pages/login`, { scroll: false });
         break;
       case "MembershipIdFindSuccess": //아이디 찾기 성공
-        router.push(`/pages/join/membershipIdFind/`, { scroll: false });
+        router.push(`/pages/join/membershipIdFind`, { scroll: false });
         break;
       case "MembershipIdFindFail": //아이디 찾기 실패
-        router.push(`/pages/join/membershipIdFind/`, { scroll: false });
+        router.push(`/pages/join/membershipIdFind`, { scroll: false });
         break;
     }
   };

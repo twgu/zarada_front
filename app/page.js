@@ -11,7 +11,7 @@ export default function App() {
 
   useEffect(() => {
     setTimeout(() => {
-      router.push(`/pages/login/`, { scroll: false });
+      router.push(`/pages/login`, { scroll: false });
     }, 1500);
   }, []);
 
