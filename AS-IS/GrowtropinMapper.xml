@@ -1,0 +1,1040 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dai.mapper.GrowtropinMapper">
+	
+<!-- 	<select id="selectSample" resultType="egovMap"> -->
+<!-- 		SELECT -->
+<!-- 			ID, NAME, DESCRIPTION, USE_YN, REG_USER -->
+<!-- 		FROM SAMPLE -->
+<!-- 		WHERE ID=#{id} -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="selectSampleList" resultType="egovMap"> -->
+<!-- 		SELECT -->
+<!-- 			ID, NAME, DESCRIPTION, USE_YN, REG_USER -->
+<!-- 		FROM SAMPLE -->
+<!-- 		WHERE 1=1 -->
+<!-- 		<if test="searchKeyword != null and searchKeyword != ''"> -->
+<!-- 	        <choose> -->
+<!-- 	            <when test="searchCondition == 0"> -->
+<!-- 					AND	ID LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 				</when> -->
+<!-- 	            <when test="searchCondition == 1"> -->
+<!-- 					AND	NAME LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 				</when> -->
+<!-- 			</choose> -->
+<!-- 		</if> -->
+<!-- 		ORDER BY ID ASC -->
+<!-- 		<if test="recordCountPerPage != null and recordCountPerPage != ''  -->
+<!-- 			and firstIndex != null and firstIndex != '' "> -->
+<!-- 		LIMIT #{recordCountPerPage} OFFSET #{firstIndex} -->
+<!-- 		</if> -->
+<!-- 	</select>	 -->
+
+
+
+	<select id="LoginSelect" resultType="egovMap">
+	/* LoginSelect */
+		select USER_CO, ID, PW, USER_NA, USER_CL, HP, TEL, BIRTH, GENDER, ZIP, ZIPADDR, ADDR, EMAIL, USERYMD, USER_STAT, IYMD, APPYMD, EDU_NRS, NRS_HP, APPR_NRS, EMAIL_CONSENT, PINFO_CONSENT, PINFO_SYMD, PINFO_EYMD, USER_KEY, UYMD , #{Enpassword} AS Enpassword , (select count(*) from login_info where ID = #{userId}) LOGIN_COUNT
+		FROM user_info
+		WHERE ID = #{userId} 
+		AND	PW = #{Enpassword} 
+		AND DEL_YN = 'N'
+	</select>
+	
+	<select id="autoFlagme" resultType="egovMap">
+	/* autoFlagme */
+		select USER_CO, ID, PW, AUTO_LOGIN, RECENT_CONNECT
+		FROM user_info
+		WHERE TOKEN_VALUE = #{auto_login}
+		ORDER BY RECENT_CONNECT DESC
+	</select>
+
+	<select id="LoginSelectId" resultType="egovMap">
+	/* LoginSelect */
+		select USER_CO, ID, PW, USER_NA, USER_CL, HP, TEL, BIRTH, GENDER, ZIP, ZIPADDR, ADDR, EMAIL, USERYMD, USER_STAT, IYMD, APPYMD, EDU_NRS, NRS_HP, APPR_NRS, EMAIL_CONSENT, PINFO_CONSENT, PINFO_SYMD, PINFO_EYMD, USER_KEY, UYMD
+		FROM user_info
+		WHERE ID = #{userId} 
+		AND DEL_YN = 'N'
+	</select>
+
+
+	<select id="FindIdSelect" resultType="egovMap">
+	/* FindIdSelect */
+		select USER_CO, ID, PW, USER_NA, USER_CL, HP, TEL, BIRTH, GENDER, ZIP, ZIPADDR, ADDR, EMAIL, USERYMD, USER_STAT, IYMD, APPYMD, EDU_NRS, NRS_HP, APPR_NRS, EMAIL_CONSENT, PINFO_CONSENT, PINFO_SYMD, PINFO_EYMD, USER_KEY, UYMD 
+		FROM user_info
+		WHERE user_na = #{user_Na} 
+		AND	HP = #{hp} 
+		AND DEL_YN = 'N'
+	</select>	
+	
+	<select id="findinjectiondata" resultType="egovMap"> 
+	/* findinjectiondata */
+		select USER_CO, CHL_CO 
+		FROM chl_inj
+		WHERE USER_CO = #{user_co}
+		AND CHL_CO = #{chl_co}
+		AND	YMD = #{inj_date}
+	</select>	
+	
+	<delete id="removeinjectiondata">
+	/* removeinjectiondata */
+		DELETE FROM chl_inj
+		WHERE USER_CO = #{user_co}
+		AND CHL_CO = #{chl_co}
+		AND YMD = #{inj_date}
+	</delete>
+
+	<select id="INJ_MSG_SELECT" resultType="egovMap">
+	/* INJ_MSG_SELECT */
+		select CONA, (select (ifnull(count(*),0)+1) from chl_inj where user_co = #{user_co} and chl_co = #{chl_co} and ymd not in (#{ymd})) daycnt
+		from  growtropin_dev.cmm_co 
+		where cdcl ='inj_msg'
+		order by rand() limit 1 
+	</select>	
+
+	<select id="CHL_INJ_HIS_Select" resultType="egovMap">
+	/* CHL_INJ_HIS_Select */
+
+		call CHL_INJ_SELECT(#{user_co},#{chl_co},#{ymd})
+		
+	</select>	
+	
+	<select id="crm_interface" resultType="egovMap">
+	/* crm_interface */
+
+		call crm_interface(#{USER_CO},#{userPhone},#{userAddress})
+		
+	</select>	
+	
+	<select id="SelectCode" resultType="egovMap">
+	/* SelectCode */
+		select cdcl, code, cona, confa, bigo, bigo1, bigo2, bigo3, bigo4, bigo5
+		from  cmm_co 
+		where cdcl = #{code}
+		order by code
+	</select>
+	
+	<select id="masterhospi" resultType="egovMap">
+	/* masterhospi */
+		SELECT ID, LOCAL, LOCALHOST, HOSPITAL 
+		FROM masterhospi
+		order by 3
+	</select>
+		
+	<select id="MAX_USER_CO" resultType="egovMap">
+	/* MAX_USER_CO */
+		select  IFNULL(MAX(USER_CO),0)+1 AS USER_CO FROM user_info
+	</select>
+	
+	<select id="MAX_CHL_CO" resultType="egovMap">
+	/* MAX_CHL_CO */
+		select  IFNULL(MAX(CHL_CO),0)+1 AS CHL_CO FROM chl_info
+		WHERE USER_CO=#{USER_CO}		
+	</select>
+	
+	<select id="MAX_PINFO_CO" resultType="egovMap">
+	/* MAX_PINFO_CO */
+		select  IFNULL(MAX(PINFO_CO),0)+1 AS PINFO_CO FROM pinfo
+		WHERE USER_CO=#{USER_CO}		
+	</select>
+
+	<insert id="insertUser">
+	/* insertUser */
+		INSERT INTO user_info(
+		   USER_CO
+		   <if test="userId != null and userId != '' ">,ID</if>
+		   <if test="Enpassword != null and Enpassword != '' ">,PW</if>
+		   <if test="userName != null and userName != '' ">,USER_NA</if>
+		  ,USER_CL
+		  <if test="EnuserPhone != null and EnuserPhone != '' ">,HP</if>
+		  ,TEL
+		  ,BIRTH
+		  ,GENDER
+		  <if test="postalCode != null and postalCode != '' ">,ZIP</if>
+		  <if test="EnuserAddress != null and EnuserAddress != '' ">,ZIPADDR</if>
+		  <if test="userDetailAddress != null and userDetailAddress != '' ">,ADDR</if>
+		  <if test="email != null and email != '' ">,EMAIL</if>
+		  ,USERYMD
+		  ,USER_STAT
+		  ,IYMD
+		  ,APPYMD
+		  <if test="EDU_NRS != null and EDU_NRS != '' ">,EDU_NRS</if>
+		  ,NRS_HP
+		   <if test="EDU_NRS != null and EDU_NRS != '' ">,APPR_NRS</if>
+		  ,EMAIL_CONSENT
+		  <if test="mode != 'tmpagree' ">,PINFO_CONSENT</if>
+		  <if test="mode != 'tmpagree' ">,PINFO_SYMD</if>
+		  <if test="mode != 'tmpagree' ">,PINFO_EYMD</if>
+		  <if test="userPhoneVal != null and userPhoneVal != '' ">,USER_KEY</if>
+		  ,UYMD
+		) VALUES (
+		   #{USER_CO}
+		   <if test="userId != null and userId != '' ">,#{userId}</if>
+		   <if test="Enpassword != null and enpassword != '' ">,#{Enpassword}</if>
+		   <if test="userName != null and userName != '' ">,#{userName}</if>
+		  ,'N' 
+		  <if test="EnuserPhone != null and EnuserPhone != '' ">,#{EnuserPhone}</if>
+		  ,NULL  
+		  ,NULL  
+		  ,NULL
+		  <if test="postalCode != null and postalCode != '' ">,#{postalCode}</if>
+		  <if test="EnuserAddress != null and EnuserAddress != '' ">,#{EnuserAddress}</if>
+		  <if test="userDetailAddress != null and userDetailAddress != '' ">,#{userDetailAddress}</if>
+		  <if test="email != null and email != '' ">,#{email}</if>
+		  ,NOW()
+		   <choose>
+		    <when test="mode == 'signup' ">,'N'</when>
+		    <when test="mode == 'agree' ">,'A'</when>
+		    <when test="mode == 'tmpagree' ">,'T'</when>
+		   </choose>		   
+		  ,NOW() 
+		  ,NOW() 
+		   <if test="EDU_NRS != null and EDU_NRS != '' ">,#{EDU_NRS}</if>
+		  ,NULL  
+		   <if test="EDU_NRS != null and EDU_NRS != '' ">,#{EDU_NRS}</if>
+		  ,''
+		  <if test="mode != 'tmpagree' ">,'Y'</if>
+		  <if test="mode != 'tmpagree' ">,NOW()</if>
+		  <if test="mode != 'tmpagree' ">,(NOW() + INTERVAL 3 YEAR)</if>  
+		  <if test="userPhoneVal != null and userPhoneVal != '' ">,#{userPhoneVal}</if>
+		  ,NOW()  
+		)
+	</insert>
+	
+	
+	<insert id="insertLoginInfo">
+	/* insertLoginInfo */
+		INSERT INTO login_info(
+		   IYMD
+		   ,ID
+		   ,P_ID
+		   ,USER_CO
+		) VALUES (
+		   NOW()
+		   ,#{userId}
+		   ,"login"
+		   ,#{user_co}
+		 
+		)
+	</insert>
+	
+	<update id="updateRecentConnect">
+	/* updateRecentConnect */
+		UPDATE user_info
+		SET RECENT_CONNECT = NOW()
+		WHERE USER_CO = #{user_co}
+	</update>
+	
+	<update id="insertAutoFlag">
+	/* insertAutoFlag */
+		UPDATE user_info
+		SET AUTO_LOGIN = #{auto_login}
+		WHERE USER_CO = #{user_co}
+	</update>
+	
+	<update id="updateAutoFlagN">
+	/* insertAutoFlag */
+		UPDATE user_info
+		SET AUTO_LOGIN = 'S'
+		WHERE USER_CO = #{user_co}
+	</update>
+	  
+	<insert id="insertUser_ch">
+	/* insertUser_ch */
+		INSERT INTO chl_info(
+		   USER_CO
+		  ,CHL_CO
+		  ,CHL_NA
+		  <if test="mode == 'signup' ">,GENDER</if>
+		  <if test="chBirthDate != null and chBirthDate != '' ">,BIRTH</if>
+		  <if test="itemcode != null and itemcode != '' ">,ITEM</if>
+		  <if test="hospitalName != null and hospitalName != '' ">,HSPTL</if>
+		  <if test="doctorName != null and doctorName != '' ">,HCP</if>
+		  <if test="fileId != null and fileId != '' ">,FILE_ID</if>
+		  <if test="reimbursementYn != null and reimbursementYn != '' ">,reimbursementyn</if>
+		  ,IYMD
+		  ,UYMD
+		) VALUES (
+		   #{USER_CO}
+		  ,#{CHL_CO}
+		  ,#{chName} 
+		  <if test="mode == 'signup' ">,#{isActive}</if>
+		  <if test="chBirthDate != null and chBirthDate != '' ">,#{chBirthDate}</if>		   
+		  <if test="itemcode != null and itemcode != '' ">,#{itemcode}</if>
+		  <if test="hospitalName != null and hospitalName != '' ">,#{hospitalName}</if>
+		  <if test="doctorName != null and doctorName != '' ">,#{doctorName}</if> 
+		  <if test="fileId != null and fileId != '' ">,#{fileId}</if> 
+		  <if test="reimbursementYn != null and reimbursementYn != '' ">,#{reimbursementYn}</if>	  
+		  ,NOW() 
+		  ,NOW() 
+		)
+	</insert>
+	
+	<insert id="insertUser_pinfo">
+	/* insertUser_pinfo */
+		INSERT INTO pinfo(
+		   USER_CO
+		  ,PINFO_CO
+		  ,PINFO_SYMD
+		  ,PINFO_EYMD
+		  ,PINFO_CONSENT
+		  ,PINFO_CL
+		) VALUES (
+		   #{USER_CO}
+		  ,#{PINFO_CO}
+		  ,NOW()
+		  ,(NOW() + INTERVAL 3 YEAR)
+		  ,#{agreeFirst}
+		  ,'N'
+		)
+	</insert>
+
+	<insert id="insertGrow">
+		INSERT INTO chl_grth
+			( USER_CO
+			  , CHL_CO
+			  , YMD
+			  , STAT
+			  , WT
+			  , BMI
+			  , IYMD
+			   )
+		VALUES ( #{user_co}
+			  , #{chl_co}
+			  , #{ymd}
+			  , #{stat}
+			  , #{wt}
+			  , #{bmi}
+			  , NOW()
+			   )
+	</insert>
+
+
+	<insert id="Insert_inj">
+		INSERT INTO chl_inj
+			( USER_CO
+			  , CHL_CO
+			  , YMD
+			  , TIME
+			  , ITEM
+			  , INJ_CO
+			  , INJ_VOL
+			  , STAT
+			  , IYMD
+			   )
+		VALUES ( #{user_co}
+			  , #{chl_co}
+			  , replace(#{ymd},'-','')
+			  , #{time}
+			  , 'ITEM'
+			  , #{inj_co}
+			  , #{injvol}
+			  , #{stat}
+			  , NOW()
+			   )
+	</insert>
+	
+<!-- 	<update id="updateSample"> -->
+<!-- 		UPDATE SAMPLE -->
+<!-- 		SET ID=#{id} -->
+<!-- 			, NAME=#{name} -->
+<!-- 			, DESCRIPTION=#{description} -->
+<!-- 			, USE_YN=#{useYn} -->
+<!-- 			  WHERE ID=#{id} -->
+<!-- 	</update> -->
+
+<!-- 	<delete id="deleteSample"> -->
+<!-- 		DELETE FROM SAMPLE -->
+<!-- 		WHERE ID=#{id} -->
+<!-- 	</delete> -->
+	<select id="ChlListSelect" resultType="egovMap">
+	/* ChlListSelect */
+		SELECT USER_CO, CHL_CO, CHL_NA, case when GENDER = '0' then '남아' else '여아' end AS GENDER, IFNULL(BIRTH,'') AS BIRTH, IFNULL(ITEM,'') AS ITEM, IFNULL(HSPTL,'') AS HSPTL, IFNULL(HCP,'') AS HCP, FILE_ID, IYMD, UYMD, IFNULL(reimbursementyn,'') AS reimbursementyn
+		, 'true' as selclass
+		FROM chl_info
+		WHERE USER_CO = #{user_co} 
+		AND DEL_YN = 'N'
+	</select>
+	
+	<select id="ChlListModSelect" resultType="egovMap">
+	/* LoginSelect */
+		SELECT A.USER_CO, CHL_CO, CHL_NA, A.GENDER, A.BIRTH, ITEM, HSPTL, HCP, FILE_ID, A.IYMD, A.UYMD, B.USER_NA, B.TEL, B.ZIPADDR, B.ADDR, B.HP
+		FROM chl_info A
+	    INNER JOIN  user_info B
+	    ON   A.USER_CO = B.USER_CO
+		WHERE A.USER_CO = #{user_co}
+		AND CHL_CO = #{chl_co}
+		AND B.DEL_YN = 'N'
+	</select>
+	
+	<update id="chlUpdate">
+	    UPDATE chl_info A
+	    INNER JOIN user_info B
+	    ON A.USER_CO = B.USER_CO
+			SET A.CHL_NA=#{chl_nm}
+				, A.BIRTH=#{chl_birth}
+				, A.GENDER=#{chl_gender}
+				, A.FILE_ID=#{file_id}
+				, A.UYMD= NOW()
+	      , B.ZIPADDR = #{userAddr}
+	      , B.ZIP = #{postalCode}
+	      , B.ADDR = #{userDetailAddr}
+			WHERE A.USER_CO = #{user_co}
+			AND A.CHL_CO = #{chl_co}
+	</update>
+	
+		<select id="UserSelect" resultType="egovMap">
+	/* UserSelect */
+		select USER_CO, ID, PW, USER_NA, USER_CL, HP, TEL, BIRTH, GENDER, ZIP, ZIPADDR, ADDR, EMAIL, USERYMD, USER_STAT, IYMD, APPYMD, EDU_NRS, NRS_HP, APPR_NRS, EMAIL_CONSENT, PINFO_CONSENT, date_format(PINFO_SYMD, '%Y-%m-%d')AS PINFO_SYMD,date_format(PINFO_EYMD, '%Y-%m-%d') AS PINFO_EYMD, USER_KEY, UYMD 
+  		,CASE WHEN pinfo_consent = 'Y' THEN '동의' ELSE '미동의' END as agree, memo
+		FROM user_info
+		WHERE USER_CO = #{user_co} 
+		AND DEL_YN = 'N'
+	</select>
+	
+	<select id="growthListSelect" resultType="egovMap">
+	/* growthListSelect */
+		select USER_CO, CHL_CO, YMD, STAT, WT, BMI, COMMENT, FILE_ID, IYMD, CONCAT_WS('.', SUBSTRING(YMD, 3, 2),SUBSTRING(YMD, 5, 2),SUBSTRING(YMD, 7, 2)) AS NEWYMD
+		FROM chl_grth
+		WHERE USER_CO = #{user_co}
+		AND CHL_CO = #{chl_co}
+		ORDER BY YMD DESC
+	</select>
+	
+	<update id="chlDelete">
+	/* chlDelete */
+		UPDATE CHL_INFO
+		SET	DEL_YN	=	'Y'
+		WHERE USER_CO = #{user_co} 
+		AND CHL_CO = #{chl_co}
+	</update>
+	
+	<select id="passwordCheck" resultType="egovMap">
+	/* passwordCheck */
+		select  COUNT(USER_CO) AS CNT
+		FROM user_info
+		WHERE USER_CO= #{user_co}
+		AND PW= #{PW}
+	</select>
+	
+	<select id="logoutF" resultType="egovMap">
+	/* logoutF */
+		select  AUTO_LOGIN
+		FROM user_info
+		WHERE USER_CO= #{user_co}
+	</select>
+	
+	<update id="withdrawal">
+	/* withdrawal */
+		UPDATE USER_INFO
+		SET	DEL_YN	=	'Y'
+		WHERE USER_CO = #{user_co}
+	</update>
+	
+	<insert id="withdrawalInsert">
+	/* withdrawalInsert */
+		INSERT INTO user_wtd(
+		   ID
+		  ,IYMD
+		  ,USER_CO
+		) VALUES (
+		   #{user_id}
+		  ,NOW()
+		  ,#{user_co}
+		)
+	</insert>
+		
+	<select id="chGrowthInfo" resultType="egovMap">
+	/* chGrowthInfo */
+		select USER_CO, CHL_CO, YMD, STAT, WT, BMI, COMMENT, FILE_ID, IYMD 
+		FROM chl_grth
+		WHERE USER_CO = #{user_co}
+		AND CHL_CO = #{chl_co}
+		ORDER BY YMD
+	</select>
+	
+	<select id="chBasicInfo" resultType="egovMap">
+	/* chBasicInfo */
+		select USER_CO, CHL_CO, CHL_NA, GENDER, BIRTH, FILE_ID 
+		FROM chl_info
+		WHERE USER_CO = #{user_co}
+		AND CHL_CO = #{chl_co} 
+		AND DEL_YN = 'N'
+	</select>
+	
+	<select id="growthListInfo" resultType="egovMap">
+	/* growthListInfo */
+		select STD_STAT, STD_WT, STD_BMI 
+		FROM std_grth
+		WHERE SEX = #{sex} 
+		AND MONTH = #{month} 
+	</select>
+	
+	<update id="updateGrow">
+	/* updateGrow */
+		UPDATE chl_grth
+		SET STAT=#{stat}
+			, WT=#{wt}
+			, BMI=#{bmi}
+			, IYMD= NOW()
+		WHERE USER_CO = #{user_co}
+		AND CHL_CO = #{chl_co}
+		AND YMD = #{ymd}
+	</update>
+	
+	<delete id="DelMedong">
+	/* DelMedong */
+		DELETE FROM user_info
+		WHERE USER_CO = #{userCo} and #{userStat} = 'T';
+	</delete>
+	
+	<delete id="DelMedongChll">
+	/* DelMedong */
+		DELETE FROM chl_info
+		WHERE USER_CO = #{userCo};
+	</delete>
+	<!-- SET USER_STAT = 'X'
+		WHERE USER_CO = #{userCo} and #{userStat} = 'T' -->
+	
+	<update id="DelChadan">
+	/* DelChadan */
+		UPDATE user_info
+		SET USER_STAT = 'C'
+		WHERE USER_CO = #{userCo}
+	</update>
+	
+	<select id="growYmdCheck" resultType="egovMap">
+	/* growYmdCheck */
+		select COUNT(1) AS CheckYN
+		FROM chl_grth
+		WHERE USER_CO = #{user_co}
+		AND CHL_CO = #{chl_co}
+		AND YMD = #{ymd}
+	</select>
+	
+	<select id="findGrowthInput" resultType="egovMap">
+	/* findGrowthInput */
+		select USER_CO, CHL_CO, YMD, STAT, WT, BMI, COMMENT, FILE_ID, IYMD 
+		FROM chl_grth
+		WHERE USER_CO = #{user_co}
+		AND CHL_CO = #{chl_co}
+		AND YMD = #{ymd}
+		ORDER BY YMD 
+	</select>	
+	
+	<delete id="removeGrowthdata">
+	/* removeGrowthdata */
+		DELETE FROM chl_grth
+		WHERE USER_CO = #{user_co}
+		AND CHL_CO = #{chl_co}
+		AND YMD = #{ymd};
+	</delete>
+	
+	<select id="Nur_UserSelect" resultType="egovMap">
+	/* Nur_UserSelect */
+		select a.user_co, a.user_na as parents, a.user_cl, a.hp as enphone, CASE WHEN a.pinfo_consent = 'Y' THEN '동의' ELSE '미동의' END as agree , a.birth, a.gender, a.zip, a.zipaddr, a.addr, a.user_stat, b.chl_co , b.chl_na as name, b.gender, b.birth, b.item, b.hsptl, b.hcp, a.memo
+		from user_info a
+		inner join chl_info b on a.user_co = b.user_co
+		WHERE 
+		<if test="user_co != null and user_co != '' ">EDU_NRS = #{user_co} and</if>
+		USER_STAT = 'A' and user_cl = 'N'		
+		<if test="ordercl ==  'bname' ">ORDER BY  a.user_na</if>
+		<if test="ordercl ==  'hname' ">ORDER BY  b.chl_na</if>
+	</select>	
+	
+	<select id="Tmp_UserCount" resultType="egovMap">
+	/* Tmp_UserCount */
+		select count(*) AS Tmp_UserCount
+		FROM user_info
+		WHERE EDU_NRS = #{user_co} and USER_STAT = 'T' and user_cl = 'N'
+	</select>	
+	
+	<select id="Nur_UserCount" resultType="egovMap">
+	/* Nur_UserCount */
+		select count(*) AS Nur_UserCount
+		FROM user_info
+		WHERE 
+		<if test="user_co != null and user_co != '' ">EDU_NRS = #{user_co} and</if>  
+		USER_STAT = 'A' and user_cl = 'N'
+	</select>
+	
+	<select id="Hold_UserSelect" resultType="egovMap">
+	/* Hold_UserSelect */
+		SELECT date_format(a.IYMD, '%Y-%m-%d')AS date ,
+		       date_format(a.IYMD, '%T')      AS time ,
+		       a.user_na                        AS name ,
+		       a.hp as enphone,
+		       a.zip ,
+		       a.zipaddr as enzipaddr,
+		       a.addr as address,
+		       a.id ,
+		       a.user_co ,
+		       b.chl_na ,
+		       b.birth ,
+		       CASE WHEN b.gender = '0' THEN '남자아이' ELSE '여자아이' END sex,
+		       c.user_na as nurseName
+		FROM   user_info a
+		       INNER JOIN chl_info b
+		       ON     b.chl_co = 1 and a.user_co = b.USER_CO 
+		       LEFT OUTER JOIN user_info c
+		       ON     a.edu_nrs = c.user_co
+		WHERE 
+		<if test="user_co != null and user_co != '' ">a.EDU_NRS = #{user_co} and</if>
+		<if test="selectcl != null and selectcl != '' ">a.USER_STAT = #{selectcl}</if>
+		AND    a.user_cl        = 'N'
+		order by date desc, time desc
+	</select>
+	
+	<select id="Hold_UserCount" resultType="egovMap">
+	/* Hold_UserCount */
+		select count(*) AS Hold_UserCount
+		FROM user_info
+		WHERE USER_STAT = 'N' and user_cl = 'N'
+	</select>
+	
+	<select id="Tmp_UserSelect" resultType="egovMap">
+	/* Tmp_UserSelect */
+		select a.user_co, a.user_na as parents, a.user_cl, a.hp as phone, CASE WHEN a.pinfo_consent = 'Y' THEN '동의' ELSE '미동의' END as agree , a.birth, a.gender, a.zip, a.zipaddr, a.addr, a.user_stat, b.chl_co , b.chl_na as name, b.gender, b.birth, b.item, b.hsptl, b.hcp
+		,'미동의 회원' as kind
+		from user_info a
+		inner join chl_info b on a.user_co = b.user_co
+		WHERE EDU_NRS = #{user_co} and USER_STAT = 'T' and user_cl = 'N'
+	</select>	
+	
+	<select id="Tmp_UserSelect_C" resultType="egovMap">
+	/* Tmp_UserSelect_C */		
+    select * from user_info a
+    INNER JOIN chl_info b on a.user_co = b.user_co and a.user_co = #{user_co} and b.chl_co = '1' and a.user_cl = 'N' and a.user_stat = 'T'
+	</select>
+	
+	<select id="Phone_UserSelect" resultType="egovMap">
+	/* Phone_UserSelect */		
+    select * from user_info a
+    INNER JOIN chl_info b on a.user_co = b.user_co and a.hp = #{EnuserPhone} and b.chl_co = '1' 
+     <if test="process == 'join' "> and a.user_cl = 'N' and (a.user_stat = 'A' or a.user_stat = 'N')</if> 
+	</select>	
+	
+	<select id="Idcheck" resultType="egovMap">
+	/* Idcheck */		
+    select count(*) as idcount 
+    from user_info a
+    where a.id = #{id}
+	</select>		
+
+	<select id="userIdcheck" resultType="egovMap">
+	/* userIdcheck */		
+    select user_co, (select count(*) from user_info where ID = #{findPwId} AND HP = #{userPhone} AND USER_NA = #{userName}) idcount 
+    from user_info a
+    where a.id = #{findPwId}
+    and a.hp = #{userPhone}
+    and a.user_na = #{userName}
+    <!-- and a.user_key = #{userPhoneVal} 간호사들은 유저키가 없기 때문에 없앤다.--> 
+	</select>	
+		
+	<update id="Join_Idcreate">
+	    UPDATE chl_info A
+	    INNER JOIN user_info B
+	    ON A.USER_CO = B.USER_CO
+			SET A.CHL_NA=#{chName}
+				<if test="chBirthDate != null and chBirthDate != '' ">, A.BIRTH = #{chBirthDate} </if>
+				, A.GENDER = #{isActive}
+				<if test="chl_gender != null and chl_gender != '' ">, A.GENDER = #{chl_gender} </if>
+				, A.UYMD= NOW()
+				, A.FILE_ID = #{fileId}
+				, B.UYMD= NOW()
+				, B.id = #{userId}
+				, B.user_key = #{userPhoneVal}
+				, B.hp = #{EnuserPhone}
+				, B.pw = #{Enpassword}
+			    , B.ZIPADDR = #{EnuserAddress}
+			    <if test="postalCode != null and postalCode != '' ">, B.ZIP= #{postalCode}</if>
+			    , B.ADDR = #{userDetailAddress}
+			WHERE A.USER_CO = #{idcreateuser}
+			AND A.CHL_CO = 1
+	</update>
+	
+	<update id="memberCancel">
+		UPDATE user_info
+		SET    
+			USER_STAT = 'N',
+			UYMD          = NOW()
+		WHERE USER_CO = #{userCo}
+	</update>
+	
+	
+	<update id="memberModify">
+		UPDATE user_info
+		SET    
+			USER_NA       = #{userName},
+			<if test="EnuserPhone != null and EnuserPhone != '' ">HP= #{EnuserPhone},</if>
+			<if test="postalCode != null and postalCode != '' ">ZIP= #{postalCode},</if>
+			<if test="EnuserAddress != null and EnuserAddress != '' ">ZIPADDR= #{EnuserAddress},</if>
+			<if test="userDetailAddress != null and userDetailAddress != '' ">ADDR= #{userDetailAddress},</if>
+			<if test="memo != null and memo != '' ">memo= #{memo},</if>
+			UYMD          = NOW()
+		WHERE USER_CO = #{userCo}
+	</update>
+	
+	
+	<update id="memberModify_Ch">
+		UPDATE chl_info
+		SET    
+			CHL_NA          = #{chlNa},
+			<if test="birth != null and birth != '' ">BIRTH= #{birth},</if>
+			<if test="item != null and item != '' ">ITEM= #{item},</if>
+			<if test="hsptl != null and hsptl != '' ">HSPTL= #{hsptl},</if>
+			<if test="hcp != null and hcp != '' ">HCP= #{hcp},</if>
+			<if test="reimbursementyn != null and reimbursementyn != '' ">reimbursementyn= #{reimbursementyn},</if>
+			UYMD          = NOW()
+		WHERE USER_CO = #{userCo} AND CHL_CO = #{chlCo}
+	</update>
+	
+	
+	<update id="AgreeUser_U">
+	    UPDATE chl_info A
+	    INNER JOIN user_info B
+	    ON A.USER_CO = B.USER_CO
+			SET A.CHL_NA=#{chName}
+				<if test="isActive != null and isActive != '' ">, A.GENDER = #{isActive} </if>
+				, A.HSPTL = #{hospitalName}
+				, A.HCP = #{doctorName}
+				, A.ITEM = #{itemcode}
+				, A.reimbursementYn = #{reimbursementYn}
+				, A.UYMD= NOW()
+				, B.UYMD= NOW()
+				, B.USER_NA = #{userName}
+				, B.hp = #{EnuserPhone}
+				<if test="postalCode != null and postalCode != '' ">, B.ZIP= #{postalCode}</if>
+				, B.ZIPADDR = #{EnuserAddress}
+				, B.ADDR = #{userDetailAddress}
+				, B.PINFO_CONSENT = 'Y'
+				, B.USER_STAT = 'A'
+				, B.PINFO_SYMD = NOW() 
+				, B.PINFO_EYMD = (NOW() + INTERVAL 3 YEAR)  
+				, B.user_key = #{userPhoneVal}			      
+			WHERE A.USER_CO = #{tmpselectuser}
+			AND A.CHL_CO = 1
+	</update>
+	
+	<update id="Tmpuser_U">
+	    UPDATE chl_info A
+	    INNER JOIN user_info B
+	    ON A.USER_CO = B.USER_CO
+			SET A.CHL_NA=#{chName}
+				<if test="isActive != null and isActive != '' ">, A.GENDER = #{isActive} </if>
+				, A.HSPTL = #{hospitalName}
+				, A.HCP = #{doctorName}
+				, A.ITEM = #{itemcode}
+				, A.reimbursementYn = #{reimbursementYn}
+				, A.UYMD= NOW()
+				, B.UYMD= NOW()
+				, B.USER_NA = #{userName}
+				, B.hp = #{EnuserPhone}
+				<if test="postalCode != null and postalCode != '' ">, B.ZIP= #{postalCode}</if>
+				, B.ZIPADDR = #{EnuserAddress}
+				, B.ADDR = #{userDetailAddress}
+				, B.user_key = #{userPhoneVal}			      
+			WHERE A.USER_CO = #{tmpselectuser}
+			AND A.CHL_CO = 1
+	</update>
+		
+	<select id="selectencryptkey" resultType="egovMap">
+	/* selectencryptkey */
+		select  encryptkey FROM encryptkey
+	</select>
+	
+	<select id="monthInfo" resultType="egovMap">
+	/* monthInfo */
+		select GRTH_NO, SEX, MONTH, STD_STAT, STD_WT, STD_BMI 
+		FROM std_grth
+		WHERE SEX = #{sex}
+	</select>
+	
+	<select id="userAN" resultType="egovMap">
+	/* userAN */
+		select USER_CL
+		FROM user_info
+		WHERE USER_CO = #{user_co}
+		AND DEL_YN = 'N'
+	</select>
+	
+	<update id="tokenInsertValue">
+	/* tokenInsertValue */
+		UPDATE user_info
+		SET TOKEN_VALUE=#{token_value}
+		WHERE USER_CO = #{user_co}
+	</update>
+
+<insert id="injectionAlarmInsert">
+	/* injectionAlarmInsert */
+		INSERT INTO al_plan(
+		   USER_CO
+		  ,CHL_CO
+		  ,AL_CL
+		  ,AL_CYC
+		  ,AL_TIME
+		  ,INJ_VOL
+		  ,MON
+		  ,TUE
+		  ,WED
+		  ,THU
+		  ,FRI
+		  ,SAT
+		  ,SUN
+		  ,IYMD 
+		) VALUES (
+		   #{user_co}
+		  ,#{chl_co}
+		  ,#{useyn}
+		  ,#{period}
+		  ,#{time}
+		  ,#{inj_volume}
+		  ,#{mon}
+		  ,#{tue}
+		  ,#{wed}
+		  ,#{thu}
+		  ,#{fri}
+		  ,#{sat}
+		  ,#{sun}
+		  ,NOW()
+		)
+	</insert>
+	
+	<update id="injectionAlarmUpdate">
+	/* injectionAlarmUpdate.. */
+		UPDATE al_plan
+		SET	
+		  AL_CYC = #{period}
+		  ,AL_CL = #{useyn}
+		  ,AL_TIME = #{time}
+		  ,INJ_VOL = #{inj_volume}
+		  ,MON = #{mon}
+		  ,TUE = #{tue}
+		  ,WED = #{wed}
+		  ,THU = #{thu}
+		  ,FRI = #{fri}
+		  ,SAT = #{sat}
+		  ,SUN = #{sun}
+		  ,IYMD = NOW()
+		WHERE USER_CO = #{user_co}
+		AND CHL_CO = #{chl_co}
+	</update>
+	
+	<select id="injectionAlarmSelect" resultType="egovMap">
+	/* "injectionAlarmSelect" */
+		select USER_CO, CHL_CO, PLAN_CO, PLAN_NA, AL_CL, AL_CYC, AL_TIME, INJ_VOL, MON, TUE, WED, THU, FRI, SAT, SUN, IYMD
+		FROM al_plan
+		WHERE USER_CO = #{user_co}
+		AND CHL_CO = #{chl_co}
+	</select>	
+	
+	
+	<update id="Hold_UserComfrim">
+		update user_info
+		set EDU_NRS = #{APPR_NRS}
+		, appymd = now()
+		, appr_nrs = #{APPR_NRS}
+		, USER_STAT = 'A'
+		where user_co = #{USER_CO}
+	</update>
+
+	<update id="alarmOnOff">
+	/* alarmOnOff */
+		UPDATE al_plan
+		SET	
+		  AL_CL = #{flag}
+		WHERE USER_CO = #{user_co}
+		AND CHL_CO = #{chl_co}
+	</update>	
+	
+	<select id="tokenValue" resultType="egovMap">
+	/* tokenValue */
+		select TOKEN_VALUE
+		FROM user_info
+		WHERE USER_CO = #{user_co} 
+	</select>
+	
+	<select id="findInjectionM" resultType="egovMap">
+	/* "findInjectionM".. */
+		SELECT A.INJ_CO, B.CONA AS INJ_NM, A.YMD, A.USER_CO, A.CHL_CO, A.ITEM, A.INJ_VOL, A.STAT, IFNULL(A.TIME,'') AS TIME, B.BIGO2, B.BIGO3
+		FROM CHL_INJ A
+		INNER JOIN  CMM_CO B
+		ON    A.INJ_CO  = B.CODE AND B.CDCL = 'INJ_CO'
+		WHERE A.USER_CO = #{user_co}
+		AND A.CHL_CO = #{chl_co}
+	    AND substring(A.YMD,1,6) between  date_format(date_add(#{ymd},interval -3 month), '%Y%m') and date_format(date_add(#{ymd},interval 3 month), '%Y%m')
+	</select>
+	
+	<select id="findInjectionY" resultType="egovMap">
+	/* "findInjectionY".. */
+		SELECT A.INJ_CO, B.CONA AS INJ_NM, A.YMD, A.USER_CO, A.CHL_CO, A.ITEM, A.INJ_VOL, A.STAT, IFNULL(A.TIME,'') AS TIME, B.BIGO2, B.BIGO3
+		FROM CHL_INJ A
+		INNER JOIN  CMM_CO B
+		ON    A.INJ_CO  = B.CODE AND B.CDCL = 'INJ_CO'
+		WHERE A.USER_CO = #{user_co}
+		AND A.CHL_CO = #{chl_co}
+	    AND substring(A.YMD,1,6) between  date_format(date_add(#{ymd},interval -14 month), '%Y%m') and date_format(date_add(#{ymd},interval 14 month), '%Y%m')
+	</select>	
+	
+	<update id="victoryPhoto">
+	/* victoryPhoto */
+		UPDATE chl_info
+		SET FILE_ID=#{file_id}
+		WHERE USER_CO = #{user_co}
+		AND CHL_CO = #{chl_co}
+	</update>
+	
+	<select id="zxcvbnm" resultType="egovMap">
+	/* zxcvbnm */
+		select GENDER, FILE_ID
+		FROM chl_info
+		WHERE USER_CO = #{user_co}
+		AND CHL_CO = #{chl_co}
+		AND DEL_YN = 'N'
+	</select>
+	
+	<select id="findDailyInjection" resultType="egovMap">
+	/* "findDailyInjection".. */
+		SELECT USER_CO, CHL_CO, YMD, ITEM, INJ_CO, INJ_VOL, STAT, IYMD, UYMD, TIME_CL, `TIME` 
+		FROM chl_inj
+		WHERE USER_CO = #{user_co}
+		AND   CHL_CO  = #{chl_co}
+		AND   YMD     = #{ymd}
+	</select>
+	
+	<insert id="injInsert">
+	/* injInsert */
+		INSERT INTO chl_inj(
+		   USER_CO
+		   , CHL_CO
+		   , YMD
+		   , ITEM
+		   , INJ_CO
+		   , INJ_VOL
+		   , STAT
+		   , IYMD
+		   , TIME_CL
+		   , TIME
+		) VALUES (
+		   #{user_co}
+		  ,#{chl_co}
+		  ,#{ymd}
+		  ,'ITEM'
+		  ,#{injco}
+		  ,#{injVol}
+		  ,'Y'
+		  ,NOW()
+		  ,''
+		  ,#{time}
+		)
+	</insert>
+	
+	<select id="findInjCo" resultType="egovMap">
+	/* "findInjCo".. */
+		SELECT IFNULL(MAX(INJ_VOL),'') AS INJ_VOL
+		FROM  AL_PLAN
+		WHERE USER_CO = #{user_co}
+		AND   CHL_CO = #{chl_co}
+	</select>
+	
+	<update id="injUpdate">
+	/* injUpdate */
+		UPDATE chl_inj
+		SET ITEM='ITEM'
+			, INJ_CO = #{injco}
+			, INJ_VOL = #{injVol}
+			, STAT = 'Y'
+			, TIME_CL = ''
+			, TIME = #{time}
+			, UYMD = NOW()
+		WHERE USER_CO = #{user_co}
+		AND CHL_CO = #{chl_co}
+		AND YMD = #{ymd}
+	</update>	
+	
+	<update id="tokenInsertValueTwo">
+	/* tokenInsertValueTwo */
+		UPDATE user_info
+		SET TOKEN_VALUE=#{token_value}
+		WHERE ID = #{id}
+	</update>
+	
+	<select id="INJ_MSG_SELECT_YMD" resultType="egovMap">
+	/* INJ_MSG_SELECT_YMD */
+		select CONA, (select (ifnull(count(*),0)+1) from chl_inj where user_co = #{user_co} and chl_co = #{chl_co} and ymd <![CDATA[ < ]]> (#{ymd})) daycnt
+		from  growtropin_dev.cmm_co 
+		where cdcl ='inj_msg'
+		order by rand() limit 1 
+	</select>
+	
+	<update id="updatePhone">
+	/* updatePhone */
+		UPDATE user_info
+		SET	HP = #{newphone} 
+		WHERE USER_CO = #{user_co}
+	</update>	
+	
+	<update id="updatePwd">
+	/* updatePwd */
+		UPDATE user_info
+		SET	PW = #{newpwd} 
+		WHERE USER_CO = #{user_co}
+	</update>	
+	
+	<select id="findAlarmVol" resultType="egovMap">
+	/* "findAlarmVol" */
+		SELECT  IFNULL(IFNULL(B.INJ_VOL,A.ITEM),'') AS INJ_VOL
+		FROM  CHL_INFO A
+		LEFT  JOIN  AL_PLAN B
+		ON  A.USER_CO = B.USER_CO
+		AND A.CHL_CO = B.CHL_CO
+		WHERE A.USER_CO = #{user_co}
+		AND   A.CHL_CO  = #{chl_co}
+	</select>	
+	
+	<select id="AlarmInfo" resultType="egovMap">
+	/* AlarmInfo */
+		SELECT A.USER_CO, A.CHL_CO, A.AL_CL, A.AL_CYC, A.AL_TIME, INJ_VOL, A.MON, A.TUE, A.WED, A.THU, A.FRI, A.SAT, A.SUN, A.IYMD, B.TOKEN_VALUE, C.CHL_NA
+		FROM al_plan A
+	    INNER JOIN user_info B
+	    ON   A.USER_CO = B.USER_CO
+	    INNER JOIN chl_info C
+	    ON A.USER_CO=C.USER_CO AND A.CHL_CO = C.CHL_CO
+	</select>
+	
+	<select id="userName" resultType="egovMap">
+	/* userName */
+		SELECT USER_NA
+		FROM user_info
+		WHERE ID = #{id}
+	</select>
+	
+	<select id="adminToken" resultType="egovMap">
+	/* adminToken */
+		SELECT USER_CO, TOKEN_VALUE
+		FROM user_info
+	    WHERE USER_CL = 'A'
+	</select>
+	
+	<update id="updateAlarmYn">
+	/* updateAlarmYn */
+		UPDATE AL_PLAN
+		SET	AL_CL	=	'N'
+		WHERE USER_CO = #{user_co} 
+		AND CHL_CO = #{chl_co}
+	</update>
+	
+	<!-- <insert id="addrTempo">
+		INSERT INTO addr_tempo
+			( RANDOM
+			  , ZIP
+			  , ADDR
+			   )
+		VALUES ( #{random}
+			  , #{zip}
+			  , #{addr}
+			   )
+	</insert> -->
+</mapper>
