@@ -65,6 +65,7 @@ export default function MembershipIdFind() {
         if (response.data == "") {
           router.push("/pages/join/membershipIdFind/fail", { scroll: false });
         } else {
+          localStorage.setItem("findId", response.data.id);
           router.push("/pages/join/membershipIdFind/success", {
             scroll: false,
           });

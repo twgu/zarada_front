@@ -11,6 +11,8 @@ export default function App() {
 
   useEffect(() => {
     setTimeout(() => {
+      localStorage.clear();
+      
       router.push(`/pages/login`, { scroll: false });
     }, 1500);
   }, []);

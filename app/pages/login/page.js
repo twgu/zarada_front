@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -12,6 +12,12 @@ export default function Login() {
 
   const idRef = useRef();
   const pwRef = useRef();
+
+  useEffect(() => {
+    setTimeout(() => {
+      localStorage.clear();
+    }, 1000);
+  }, []);
 
   const login = () => {
     axios
