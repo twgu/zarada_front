@@ -52,6 +52,9 @@ export default function Login() {
         } else {
           router.push(`/pages/home/admin/`, { scroll: false });
         }
+      })
+      .catch((error) => {
+        alert(error.message);
       });
   };
 
