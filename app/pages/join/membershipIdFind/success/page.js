@@ -13,7 +13,7 @@ export default function Success() {
 
   return (
     <div className="h-project-template">
-      <MembershipHeader title="아이디 찾기" nowPage="MembershipIdFindSuccess" />
+      <MembershipHeader title="아이디 찾기" />
       <div className="h-project-content join-membership id-find">
         <h3 className="join-tit">일치하는 아이디를 찾았습니다</h3>
         <div className="input-area">

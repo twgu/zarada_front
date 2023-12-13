@@ -78,7 +78,7 @@ export default function MembershipIdFind() {
 
   return (
     <div className="h-project-template">
-      <MembershipHeader title="아이디 찾기" nowPage="MembershipIdFind" />
+      <MembershipHeader title="아이디 찾기" />
       <div className="h-project-content join-membership">
         <h3 className="join-tit">보호자 이름, 휴대폰 번호를 적어주세요</h3>
         <div className="tab-template">

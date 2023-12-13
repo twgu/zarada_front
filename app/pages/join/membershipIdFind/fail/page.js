@@ -4,7 +4,7 @@ import MembershipHeader from "@/app/components/MembershipHeader";
 export default function Fail() {
   return (
     <div className="h-project-template">
-      <MembershipHeader title="아이디 찾기" nowPage="MembershipIdFindFail" />
+      <MembershipHeader title="아이디 찾기" />
       <div className="h-project-content join-membership id-find">
         <h3 className="join-tit">일치하는 아이디가 없습니다.</h3>
         <div className="input-area">
