@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import MembershipHeader from "@/app/components/MembershipHeader";
+import FormGroup from "@/app/components/FormGroup";
 
 const pwReg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,16}/; //6-16자리 영문, 숫자, 특수문자 조합
 
@@ -117,7 +118,7 @@ export default function Success() {
       <div className="h-project-content join-membership">
         <h3 className="join-tit">비밀번호를 재설정 해주세요</h3>
         <div className="tab-template">
-          <div className={pwError ? "form-group error" : "form-group valid"}>
+          <FormGroup error={pwError} errorText={pwErrorMsg}>
             <div className="input-area">
               <label className="blind" htmlFor="pw-reset">
                 비밀번호
@@ -135,13 +136,8 @@ export default function Success() {
                 }}
               />
             </div>
-            {pwError ? (
-              <div className="form-error is-visible">
-                <div data-validation-attr={pwErrorMsg}>{pwErrorMsg}</div>
-              </div>
-            ) : null}
-          </div>
-          <div className={pwOkError ? "form-group error" : "form-group valid"}>
+          </FormGroup>
+          <FormGroup error={pwOkError} errorText={pwOkErrorMsg}>
             <div className="input-area">
               <label className="blind" htmlFor="pw-reset-again">
                 비밀번호 재입력
@@ -159,12 +155,7 @@ export default function Success() {
                 }}
               />
             </div>
-            {pwOkError ? (
-              <div className="form-error is-visible">
-                <div data-validation-attr={pwOkErrorMsg}>{pwOkErrorMsg}</div>
-              </div>
-            ) : null}
-          </div>
+          </FormGroup>
           <div className="bottom-fixed">
             <button
               type="button"

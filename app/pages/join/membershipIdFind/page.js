@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import MembershipHeader from "@/app/components/MembershipHeader";
 import { useRouter } from "next/navigation";
+import FormGroup from "@/app/components/FormGroup";
 
 export default function MembershipIdFind() {
   const router = useRouter();
@@ -82,7 +83,7 @@ export default function MembershipIdFind() {
       <div className="h-project-content join-membership">
         <h3 className="join-tit">보호자 이름, 휴대폰 번호를 적어주세요</h3>
         <div className="tab-template">
-          <div className={nameError ? "form-group error" : "form-group valid"}>
+          <FormGroup error={nameError} errorText="보호자 이름을 입력해주세요.">
             <div className="input-area">
               <input
                 className="default-input"
@@ -101,15 +102,8 @@ export default function MembershipIdFind() {
                 보호자 이름
               </label>
             </div>
-            {nameError ? (
-              <div className="form-error is-visible">
-                <div data-validation-attr="보호자 이름을 입력해주세요.">
-                  보호자 이름을 입력해주세요.
-                </div>
-              </div>
-            ) : null}
-          </div>
-          <div className={phoneError ? "form-group error" : "form-group valid"}>
+          </FormGroup>
+          <FormGroup error={phoneError} errorText="휴대폰 번호를 입력해주세요.">
             <div className="input-area">
               <input
                 className="default-input"
@@ -128,14 +122,7 @@ export default function MembershipIdFind() {
                 휴대폰 번호
               </label>
             </div>
-            {phoneError ? (
-              <div className="form-error is-visible">
-                <div data-validation-attr="휴대폰 번호를 입력해주세요.">
-                  휴대폰 번호를 입력해주세요.
-                </div>
-              </div>
-            ) : null}
-          </div>
+          </FormGroup>
           <div className="bottom-fixed">
             <button
               type="button"

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import MembershipHeader from "@/app/components/MembershipHeader";
+import FormGroup from "@/app/components/FormGroup";
 
 export default function MembershipPwFind() {
   const router = useRouter();
@@ -88,7 +89,7 @@ export default function MembershipPwFind() {
       <div className="h-project-content join-membership">
         <h3 className="join-tit">아이디 입력 후 휴대폰 인증을 진행하세요</h3>
         <div className="tab-template">
-          <div className={idError ? "form-group error" : "form-group valid"}>
+          <FormGroup error={idError} errorText="아이디를 입력해주세요.">
             <div className="input-area">
               <input
                 type="text"
@@ -107,14 +108,7 @@ export default function MembershipPwFind() {
                 아이디
               </label>
             </div>
-            {idError ? (
-              <div className="form-error is-visible">
-                <div data-validation-attr="아이디을 입력해주세요">
-                  아이디을 입력해주세요
-                </div>
-              </div>
-            ) : null}
-          </div>
+          </FormGroup>
           <div className="form-group">
             <div className="input-area calc-input-area">
               <input
