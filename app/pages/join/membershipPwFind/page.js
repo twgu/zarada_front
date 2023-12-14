@@ -109,7 +109,7 @@ export default function MembershipPwFind() {
               </label>
             </div>
           </FormGroup>
-          <div className="form-group">
+          <FormGroup error={false} errorText="">
             <div className="input-area calc-input-area">
               <input
                 type="num"
@@ -132,8 +132,8 @@ export default function MembershipPwFind() {
                 인증
               </button>
             </div>
-          </div>
-          <div className="form-group">
+          </FormGroup>
+          <FormGroup error={false} errorText="">
             <div className="input-area">
               <input
                 type="text"
@@ -147,7 +147,7 @@ export default function MembershipPwFind() {
                 보호자 이름
               </label>
             </div>
-          </div>
+          </FormGroup>
           <div className="bottom-fixed">
             <button
               type="button"
