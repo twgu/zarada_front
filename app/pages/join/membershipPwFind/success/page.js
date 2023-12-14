@@ -20,7 +20,7 @@ export default function Success() {
 
   const fPwChange = () => {
     if (pwError || pwOkError) {
-      alert("비밀번호와 비밀번호 재설정 필드 모두 올바른 값을 입력 해주세요.");
+      alert("비밀번호와 비밀번호 확인 필드 모두 올바른 값을 입력 해주세요.");
       return;
     }
     if (!pwReg.test(pwOkVal)) {
