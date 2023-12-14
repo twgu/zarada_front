@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
   return (
     <html>
       <body>
-        <div className="app-template">{children}</div>
+        <div className="app-template default">{children}</div>
       </body>
     </html>
   );
