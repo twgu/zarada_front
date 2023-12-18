@@ -366,7 +366,8 @@ button {
 
 .modify-inform .visual-top {
   position: relative;
-  background: url("../../public/images/modify-inform-bg.jpg") no-repeat center top;
+  background: url("../../public/images/modify-inform-bg.jpg") no-repeat center
+    top;
   background-size: cover;
   height: 110px;
 }
@@ -478,20 +479,20 @@ button {
 }
 .modify-inform .join-btn.boy {
   margin-right: 4%;
-  background: url("../../public/images/modify-boy-deactive.png") no-repeat #b4b4b4 bottom
-    right 15px;
+  background: url("../../public/images/modify-boy-deactive.png") no-repeat
+    #b4b4b4 bottom right 15px;
 }
 .modify-inform .join-btn.boy.active {
-  background: url("../../public/images/modify-boy-active.png") no-repeat #36daff bottom right
-    15px;
+  background: url("../../public/images/modify-boy-active.png") no-repeat #36daff
+    bottom right 15px;
 }
 .modify-inform .join-btn.girl {
-  background: url("../../public/images/modify-girl-deactive.png") no-repeat #b4b4b4 bottom
-    right 15px;
+  background: url("../../public/images/modify-girl-deactive.png") no-repeat
+    #b4b4b4 bottom right 15px;
 }
 .modify-inform .join-btn.girl.active {
-  background: url("../../public/images/modify-girl-active.png") no-repeat #ff69a6 bottom
-    right 15px;
+  background: url("../../public/images/modify-girl-active.png") no-repeat
+    #ff69a6 bottom right 15px;
 }
 
 .withdrawal-btn {
@@ -596,21 +597,23 @@ button {
 }
 .join-membership .join-btn.boy {
   margin-right: 4%;
-  background: url("../../public/images/join-boy-deactive.png") no-repeat #d5d5d5 center
-    bottom;
+  background: url("../../public/images/join-boy-deactive.png") no-repeat #d5d5d5
+    center bottom;
   background-size: 50px auto;
 }
 .join-membership .join-btn.boy.active {
-  background: url("../../public/images/join-boy-active.png") no-repeat #7de7ff center bottom;
+  background: url("../../public/images/join-boy-active.png") no-repeat #7de7ff
+    center bottom;
   background-size: 50px auto;
 }
 .join-membership .join-btn.girl {
-  background: url("../../public/images/join-girl-deactive.png") no-repeat #d5d5d5 center
-    bottom;
+  background: url("../../public/images/join-girl-deactive.png") no-repeat
+    #d5d5d5 center bottom;
   background-size: 50px auto;
 }
 .join-membership .join-btn.girl.active {
-  background: url("../../public/images/join-girl-active.png") no-repeat #ffabcd center bottom;
+  background: url("../../public/images/join-girl-active.png") no-repeat #ffabcd
+    center bottom;
   background-size: 50px auto;
 }
 .join-membership .join-submit {
@@ -1365,10 +1368,12 @@ button {
   padding-top: 5px;
 }
 .table-visual-top .table-visual-left .table-radius.boy {
-  background: url("../../public/images/growth-state-profile-boy.png") no-repeat center top;
+  background: url("../../public/images/growth-state-profile-boy.png") no-repeat
+    center top;
 }
 .table-visual-top .table-visual-left .table-radius.girl {
-  background: url("../../public/images/growth-state-profile-girl.png") no-repeat center top;
+  background: url("../../public/images/growth-state-profile-girl.png") no-repeat
+    center top;
 }
 .table-visual-top .table-visual-left .table-radius .radius-input {
   color: #000;
@@ -1589,8 +1594,8 @@ button {
   margin-left: -0.5px;
 }
 .growth-helper-contents .helper-banner.exercise-first {
-  background: url("../../public/images/helper-banner-exercise-first.jpg") no-repeat center
-    top;
+  background: url("../../public/images/helper-banner-exercise-first.jpg")
+    no-repeat center top;
 }
 /* .growth-helper-contents .helper-banner.exercise-second {
   background: url("../../public/images/helper-banner-exercise-second.jpg") no-repeat center
@@ -1601,16 +1606,20 @@ button {
     top;
 } */
 .growth-helper-contents .helper-banner.food-first {
-  background: url("../../public/images/helper-banner-food-first.jpg") no-repeat center top;
+  background: url("../../public/images/helper-banner-food-first.jpg") no-repeat
+    center top;
 }
 .growth-helper-contents .helper-banner.food-second {
-  background: url("../../public/images/helper-banner-food-second.jpg") no-repeat center top;
+  background: url("../../public/images/helper-banner-food-second.jpg") no-repeat
+    center top;
 }
 .growth-helper-contents .helper-banner.food-third {
-  background: url("../../public/images/helper-banner-food-third.jpg") no-repeat center top;
+  background: url("../../public/images/helper-banner-food-third.jpg") no-repeat
+    center top;
 }
 .growth-helper-contents .helper-banner.food-four {
-  background: url("../../public/images/helper-banner-food-four.jpg") no-repeat center top;
+  background: url("../../public/images/helper-banner-food-four.jpg") no-repeat
+    center top;
 }
 .growth-helper-contents .helper-banner .banner-tit {
   color: #fff;
@@ -1724,13 +1733,16 @@ button {
   height: 100%;
 }
 .growth-helper-contents .helper-banner.first {
-  background: url("../../public/images/helper-banner-first.jpg") no-repeat center top;
+  background: url("../../public/images/helper-banner-first.jpg") no-repeat
+    center top;
 }
 .growth-helper-contents .helper-banner.second {
-  background: url("../../public/images/helper-banner-second.jpg") no-repeat center top;
+  background: url("../../public/images/helper-banner-second.jpg") no-repeat
+    center top;
 }
 .growth-helper-contents .helper-banner.third {
-  background: url("../../public/images/helper-banner-third.jpg") no-repeat center top;
+  background: url("../../public/images/helper-banner-third.jpg") no-repeat
+    center top;
 }
 .growth-helper-contents .helper-banner .banner-tit {
   color: #fff;
@@ -2423,25 +2435,32 @@ button {
   text-align: left;
 }
 .injection-helper .helper-banner.first {
-  background: url("../../public/images/injection-banner-first.jpg") no-repeat center top;
+  background: url("../../public/images/injection-banner-first.jpg") no-repeat
+    center top;
 }
 .injection-helper .helper-banner.second {
-  background: url("../../public/images/injection-banner-second.jpg") no-repeat center top;
+  background: url("../../public/images/injection-banner-second.jpg") no-repeat
+    center top;
 }
 .injection-helper .helper-banner.third {
-  background: url("../../public/images/injection-banner-third.jpg") no-repeat center top;
+  background: url("../../public/images/injection-banner-third.jpg") no-repeat
+    center top;
 }
 .injection-helper .helper-banner.fourth {
-  background: url("../../public/images/injection-banner-fourth.jpg") no-repeat center top;
+  background: url("../../public/images/injection-banner-fourth.jpg") no-repeat
+    center top;
 }
 .injection-helper .helper-banner.five {
-  background: url("../../public/images/injection-banner-five.jpg") no-repeat center top;
+  background: url("../../public/images/injection-banner-five.jpg") no-repeat
+    center top;
 }
 .injection-helper .helper-banner.six {
-  background: url("../../public/images/injection-banner-second.jpg") no-repeat center top;
+  background: url("../../public/images/injection-banner-second.jpg") no-repeat
+    center top;
 }
 .injection-helper .helper-banner.seven {
-  background: url("../../public/images/injection-banner-five.jpg") no-repeat center top;
+  background: url("../../public/images/injection-banner-five.jpg") no-repeat
+    center top;
 }
 .injection-helper .helper-banner .banner-tit {
   font-size: 20px;
@@ -2605,7 +2624,8 @@ button {
   width: 90px;
   height: 85px;
   content: "";
-  background: url("../../public/images/am-main-character.png") no-repeat center top;
+  background: url("../../public/images/am-main-character.png") no-repeat center
+    top;
 }
 
 .admin-main .temporary-storage {
@@ -2839,7 +2859,8 @@ button {
   overflow: hidden;
   width: 15px;
   height: 9px;
-  background: url("../../public/images/management-arrow-toggle.png") no-repeat center top;
+  background: url("../../public/images/management-arrow-toggle.png") no-repeat
+    center top;
 }
 
 .hospital-content .days-area .alarm-select-btn {
@@ -3273,4 +3294,39 @@ button {
   padding: 0 20px;
   font-size: 15px;
   color: #000;
+}
+
+.dim {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0.6;
+  z-index: 1000;
+}
+.addr-search-section {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: calc(100% - 40px);
+  height: calc(100% - 120px);
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 1100;
+}
+.addr-search-section .addr-search > div {
+  width: 100% !important;
+}
+.addr-search-section .close {
+  display: inline-block;
+  position: absolute;
+  right: 0px;
+  top: -40px;
+  width: 34px;
+  height: 38px;
+  line-height: 38px;
+  text-align: center;
+  background: #fff;
+  cursor: pointer;
 }

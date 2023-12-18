@@ -5,6 +5,9 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import MembershipHeader from "@/app/components/MembershipHeader";
 import FormGroup from "@/app/components/FormGroup";
+import DaumPostcodeEmbed from "react-daum-postcode";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Second() {
   const router = useRouter();
@@ -18,6 +21,8 @@ export default function Second() {
   const [addressError, setAddressError] = useState(false);
   const [dtlAddress, setDtlAddress] = useState("");
   const [dtlAddressError, setDtlAddressError] = useState(false);
+
+  const [daumPostcode, setDaumPostcode] = useState(false);
 
   useEffect(() => {
     if (phoneVal != "") {
@@ -86,6 +91,15 @@ export default function Second() {
       });
   };
 
+  const fOnComplete = (data) => {
+    setDaumPostcode(false);
+    
+    setPostalCode(data.zonecode);
+    setPostalCodeError(false);
+    setAddress(data.address);
+    setAddressError(false);
+  };
+
   const onChangeHandler = (e, id) => {
     switch (id) {
       case "dtlAddress":
@@ -117,13 +131,10 @@ export default function Second() {
         fNicePhone();
         break;
       case "addrSearch":
-        // TODO : 다음 주소찾기
-        alert("다음 주소찾기 모듈 호출");
-        setPostalCode("04989");
-        setAddress("서울 광진구 능동로32길 20-19");
-
-        setPostalCodeError(false);
-        setAddressError(false);
+        setDaumPostcode(true);
+        break;
+      case "faXmark":
+        setDaumPostcode(false);
         break;
       case "next":
         fNextStep();
@@ -259,6 +270,27 @@ export default function Second() {
           </button>
         </div>
       </div>
+      <div
+        className="addr-search-section"
+        style={daumPostcode ? {} : { display: "none" }}
+      >
+        <div
+          className="close"
+          onClick={() => {
+            onClickHandler("faXmark");
+          }}
+        >
+          <FontAwesomeIcon icon={faXmark} />
+        </div>
+        <div className="addr-search">
+          <DaumPostcodeEmbed
+            onComplete={fOnComplete}
+            style={{ height: "500px" }}
+            autoClose={false}
+          />
+        </div>
+      </div>
+      <div className="dim" style={daumPostcode ? {} : { display: "none" }} />
     </div>
   );
 }

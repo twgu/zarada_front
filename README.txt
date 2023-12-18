@@ -16,3 +16,4 @@ PS \zarada_front> npx create-next-app@latest .
 PS \zarada_front> npm i sass
 PS \zarada_front> npm install axios
 PS \zarada_front> npm install --save @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
+PS \zarada_front> npm install react-daum-postcode
