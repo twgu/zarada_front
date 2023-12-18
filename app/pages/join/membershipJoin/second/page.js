@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 import MembershipHeader from "@/app/components/MembershipHeader";
 import FormGroup from "@/app/components/FormGroup";
 
@@ -16,6 +17,12 @@ export default function Second() {
   const [dtlAddress, setDtlAddress] = useState("");
   const [dtlAddressError, setDtlAddressError] = useState(false);
 
+  useEffect(() => {
+    if (phoneVal != "") {
+      fUserDuplication();
+    }
+  }, [phoneVal]);
+
   const fNextStep = () => {
     if (!niceVal) {
       alert("휴대폰인증 후 진행하시기 바랍니다.");
@@ -24,6 +31,40 @@ export default function Second() {
         scroll: false,
       });
     }
+  };
+
+  const fNicePhone = () => {
+    // TODO : NICE 인증
+    alert("나이스 휴대폰 인증 모듈 호출");
+    setNiceVal(true);
+    setPhoneVal("01023089903");
+    setNameVal("구태완");
+  };
+
+  const fUserDuplication = () => {
+    axios
+      .post(process.env.NEXT_PUBLIC_API_URL + "/Phone_UserSelect", {
+        userPhone: phoneVal,
+        process: "join",
+      })
+      .then((response) => {
+        if (response.data.length != 0) {
+          if (response.data.id === undefined) {
+          } else {
+            if (response.data.userStat == "A") {
+              alert("이미회원가입이 되어있습니다. 로그인화면으로 이동합니다.");
+            } else if (response.data.userStat == "N") {
+              alert("이미회원가입이 되어있습니다. 간호사 승인 대기 중입니다.");
+            }
+            router.push("/pages/login", {
+              scroll: false,
+            });
+          }
+        }
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   };
 
   const onChangeHandler = (e, id) => {
@@ -54,11 +95,7 @@ export default function Second() {
   const onClickHandler = (id) => {
     switch (id) {
       case "nicePhone":
-        // TODO : NICE 인증
-        alert("나이스 휴대폰 인증 모듈 호출");
-        setNiceVal(true);
-        setPhoneVal("01023089903");
-        setNameVal("구태완");
+        fNicePhone();
         break;
       case "addrSearch":
         // TODO : 다음 주소찾기
@@ -100,7 +137,7 @@ export default function Second() {
             <FormGroup error={false} errorText="">
               <div className="input-area">
                 <input
-                  type="num"
+                  type="text"
                   className="default-input"
                   id="agree-phone-number"
                   disabled={true}
