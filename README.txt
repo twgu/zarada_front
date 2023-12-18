@@ -12,6 +12,8 @@ PS \zarada_front> npx create-next-app@latest .
 √ Would you like to use 'src/' directory? ... No
 √ Would you like to use App Router? (recommended) ... Yes
 √ Would you like to customize the default import alias (@/*)? ... No
+# react -> v18
+# next -> v14.0.4
 
 PS \zarada_front> npm i sass
 PS \zarada_front> npm install axios
