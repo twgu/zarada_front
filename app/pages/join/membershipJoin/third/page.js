@@ -70,6 +70,10 @@ export default function Third() {
       return;
     }
 
+    localStorage.setItem("join_userId", idVal);
+    localStorage.setItem("join_password", pwVal);
+    localStorage.setItem("join_repeatPassword", pwOkVal);
+
     router.push("/pages/join/membershipJoin/fourth", {
       scroll: false,
     });

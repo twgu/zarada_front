@@ -14,6 +14,9 @@ export default function First() {
     if (!agree) {
       alert("개인정보 수집 및 이용 동의에 체크해주세요.");
     } else {
+      localStorage.setItem("join_agreeFirst", agree);
+      localStorage.setItem("join_mode", "signup");
+
       router.push("/pages/join/membershipJoin/second", {
         scroll: false,
       });

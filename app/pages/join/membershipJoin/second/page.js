@@ -13,7 +13,9 @@ export default function Second() {
   const [phoneVal, setPhoneVal] = useState("");
   const [nameVal, setNameVal] = useState("");
   const [postalCode, setPostalCode] = useState("");
+  const [postalCodeError, setPostalCodeError] = useState(false);
   const [address, setAddress] = useState("");
+  const [addressError, setAddressError] = useState(false);
   const [dtlAddress, setDtlAddress] = useState("");
   const [dtlAddressError, setDtlAddressError] = useState(false);
 
@@ -26,11 +28,26 @@ export default function Second() {
   const fNextStep = () => {
     if (!niceVal) {
       alert("휴대폰인증 후 진행하시기 바랍니다.");
-    } else {
-      router.push("/pages/join/membershipJoin/third", {
-        scroll: false,
-      });
+      return;
     }
+
+    if (postalCode == "") {
+      setPostalCodeError(true);
+      setAddressError(true);
+      setDtlAddressError(true);
+      return;
+    }
+
+    localStorage.setItem("join_userPhone", phoneVal);
+    localStorage.setItem("join_userPhoneVal", phoneVal); // TODO : NICE 인증
+    localStorage.setItem("join_userName", nameVal);
+    localStorage.setItem("join_postalCode", postalCode);
+    localStorage.setItem("join_userAddress", address);
+    localStorage.setItem("join_userDetailAddress", dtlAddress);
+
+    router.push("/pages/join/membershipJoin/third", {
+      scroll: false,
+    });
   };
 
   const fNicePhone = () => {
@@ -50,6 +67,8 @@ export default function Second() {
       .then((response) => {
         if (response.data.length != 0) {
           if (response.data.id === undefined) {
+            localStorage.setItem("join_mode", "Idcreate");
+            localStorage.setItem("join_idcreateuser", response.data.userCo);
           } else {
             if (response.data.userStat == "A") {
               alert("이미회원가입이 되어있습니다. 로그인화면으로 이동합니다.");
@@ -102,6 +121,9 @@ export default function Second() {
         alert("다음 주소찾기 모듈 호출");
         setPostalCode("04989");
         setAddress("서울 광진구 능동로32길 20-19");
+
+        setPostalCodeError(false);
+        setAddressError(false);
         break;
       case "next":
         fNextStep();
@@ -166,7 +188,7 @@ export default function Second() {
             </FormGroup>
           </>
         ) : null}
-        <FormGroup error={false} errorText="">
+        <FormGroup error={postalCodeError} errorText="우편번호를 입력해주세요">
           <div className="input-area calc-input-area">
             <input
               type="text"
@@ -190,7 +212,7 @@ export default function Second() {
             </button>
           </div>
         </FormGroup>
-        <FormGroup error={false} errorText="">
+        <FormGroup error={addressError} errorText="주소를 입력해주세요">
           <div className="input-area">
             <input
               type="text"

@@ -49,9 +49,31 @@ export default function Fourth() {
       return;
     }
 
-    if (!chNameError && !chBirthDateError) {
-      router.push("/pages/join/membershipJoin/completion", { scroll: false });
-    }
+    axios
+      .post(process.env.NEXT_PUBLIC_API_URL + "/Join_User_C", {
+        agreeFirst: localStorage.getItem("join_agreeFirst"), // 1단계
+        userPhone: localStorage.getItem("join_userPhone"), // 2단계
+        userPhoneVal: localStorage.getItem("join_userPhoneVal"), // 2단계
+        userName: localStorage.getItem("join_userName"), // 2단계
+        postalCode: localStorage.getItem("join_postalCode"), // 2단계
+        userAddress: localStorage.getItem("join_userAddress"), // 2단계
+        userDetailAddress: localStorage.getItem("join_userDetailAddress"), // 2단계
+        userId: localStorage.getItem("join_userId"), // 3단계
+        password: localStorage.getItem("join_password"), // 3단계
+        repeatPassword: localStorage.getItem("join_repeatPassword"), // 3단계
+        chName: chNameVal,
+        chBirthDate: chBirthDateVal,
+        fileId: sexBoy ? "img/nav-home-active-boy.png" : "img/nav-home-active-girl.png",
+        isActive: sexBoy ? "0" : "1",
+        mode: localStorage.getItem("join_mode"), // 1단계, 2단계
+        idcreateuser: localStorage.getItem("join_idcreateuser"), // 2단계
+      })
+      .then((response) => {
+        router.push("/pages/join/membershipJoin/completion", { scroll: false });
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   };
 
   const onChangeHandler = (e, id) => {
