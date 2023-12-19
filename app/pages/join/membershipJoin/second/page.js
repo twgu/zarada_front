@@ -47,7 +47,7 @@ export default function Second() {
     if (localStorage.getItem("join_userDetailAddress") != null) {
       setDtlAddress(localStorage.getItem("join_userDetailAddress"));
     }
-  }, []);
+  }, [phoneVal]);
 
   const fNextStep = () => {
     if (!niceVal) {
