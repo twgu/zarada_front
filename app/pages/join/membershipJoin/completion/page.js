@@ -9,7 +9,7 @@ export default function Completion() {
 
   return (
     <div className="h-project-template">
-      <MembershipHeader title="회원가입" />
+      <MembershipHeader title="회원가입" backDisabled={true} />
       <div className="h-project-content join-membership">
         <h3 className="completion-tit">자라다(ZARADA) App</h3>
         <span className="completion-txt">회원가입 되었습니다!</span>

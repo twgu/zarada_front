@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import MembershipHeader from "@/app/components/MembershipHeader";
@@ -22,6 +22,18 @@ export default function Third() {
   const [pwOkError, setPwOkError] = useState(false);
   const [pwOkErrorMsg, setPwOkErrorMsg] = useState("");
   const [pwOkVal, setPwOkVal] = useState("");
+
+  useEffect(() => {
+    if (localStorage.getItem("join_userId") != null) {
+      setIdVal(localStorage.getItem("join_userId"));
+    }
+    if (localStorage.getItem("join_password") != null) {
+      setPwVal(localStorage.getItem("join_password"));
+    }
+    if (localStorage.getItem("join_repeatPassword") != null) {
+      setPwOkVal(localStorage.getItem("join_repeatPassword"));
+    }
+  }, []);
 
   const fIdCheck = () => {
     if (idError) {

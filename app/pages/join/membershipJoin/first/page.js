@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MembershipHeader from "@/app/components/MembershipHeader";
 import { useRouter } from "next/navigation";
 
@@ -9,6 +9,16 @@ export default function First() {
 
   const [agree, setAgree] = useState(false);
   const [popOpen, setPopOpen] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("join_agreeFirst") != null) {
+      if (localStorage.getItem("join_agreeFirst") == "true") {
+        setAgree(true);
+      } else {
+        setAgree(false);
+      }
+    }
+  }, []);
 
   const fNextStep = () => {
     if (!agree) {

@@ -28,7 +28,26 @@ export default function Second() {
     if (phoneVal != "") {
       fUserDuplication();
     }
-  }, [phoneVal]);
+
+    if (localStorage.getItem("join_userPhone") != null) {
+      setPhoneVal(localStorage.getItem("join_userPhone"));
+    }
+    if (localStorage.getItem("join_userPhoneVal") != null) {
+      setNiceVal(true);
+    }
+    if (localStorage.getItem("join_userName") != null) {
+      setNameVal(localStorage.getItem("join_userName"));
+    }
+    if (localStorage.getItem("join_postalCode") != null) {
+      setPostalCode(localStorage.getItem("join_postalCode"));
+    }
+    if (localStorage.getItem("join_userAddress") != null) {
+      setAddress(localStorage.getItem("join_userAddress"));
+    }
+    if (localStorage.getItem("join_userDetailAddress") != null) {
+      setDtlAddress(localStorage.getItem("join_userDetailAddress"));
+    }
+  }, []);
 
   const fNextStep = () => {
     if (!niceVal) {
