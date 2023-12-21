@@ -1,4 +1,6 @@
-# 개발환경
+#######################################################################
+# [ 개발환경 ]
+
 PS \zarada_front> node -v
 v20.9.0
 
@@ -20,8 +22,16 @@ PS \zarada_front> npm install axios
 PS \zarada_front> npm install --save @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
 PS \zarada_front> npm install react-daum-postcode
 
-# 경로 설정 규칙
-# 1. .css : "../../public/images/"
-# 2. import : "@/app/components/"
-# 3. <Image> : "/images/"
-# 4. router.push() : "/pages/"
+#######################################################################
+# [ 경로 설정 규칙 ]
+
+# 1. .css 파일은 "../" 사용
+# ex) "../../public/images/"
+
+# 2. import 시 "@/" 사용
+# ex) "@/app/components/FormGroup"
+
+# 3. public 경로의 정적 파일 사용 시 또는 경로 라우팅 시 "/" 사용
+# ex) "/images/intro.png"
+# ex) "/pages/join/membershipJoin/first"
+# ("/"는 "/app/" 경로와 "/public/" 경로 전부를 지칭함.)
