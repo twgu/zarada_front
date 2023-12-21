@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+
 import MembershipHeader from "@/app/components/MembershipHeader";
 
 export default function Success() {

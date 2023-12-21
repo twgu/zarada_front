@@ -3,11 +3,12 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import MembershipHeader from "@/app/components/MembershipHeader";
-import FormGroup from "@/app/components/FormGroup";
 import DaumPostcodeEmbed from "react-daum-postcode";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import MembershipHeader from "@/app/components/MembershipHeader";
+import FormGroup from "@/app/components/FormGroup";
 
 export default function Second() {
   const router = useRouter();

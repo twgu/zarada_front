@@ -5,7 +5,6 @@ import { useRef, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import img_logoLogin from "@/public/images/logo-login.png";
 
 export default function Login() {
   const router = useRouter();
@@ -66,7 +65,13 @@ export default function Login() {
     <div className="login-template">
       <div className="login-page">
         <h2 className="login-tit">
-          <Image src={img_logoLogin} alt="logo-login" priority />
+          <Image
+            src="/images/logo-login.png"
+            width={281}
+            height={62}
+            alt="logo-login"
+            priority={true}
+          />
         </h2>
         <div className="login-form">
           <div className="input-area">

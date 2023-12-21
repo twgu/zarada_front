@@ -1,10 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-
 import Image from "next/image";
-import img_intro from "@/public/images/intro.png";
+import { useEffect } from "react";
 
 export default function App() {
   const router = useRouter();
@@ -19,7 +17,13 @@ export default function App() {
     <div className="login-template">
       <div className="intro-page">
         <div className="intro-character">
-          <Image src={img_intro} alt="intro" priority />
+          <Image
+            src="/images/intro.png"
+            width={250}
+            height={310}
+            alt="intro"
+            priority={true}
+          />
         </div>
         <p className="intro-copyright">
           Copyright 2023. DAI inc. all rights reserved.

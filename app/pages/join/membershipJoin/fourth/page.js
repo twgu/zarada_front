@@ -2,17 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-
+import Image from "next/image";
 import axios from "axios";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import MembershipHeader from "@/app/components/MembershipHeader";
 import FormGroup from "@/app/components/FormGroup";
-
-import Image from "next/image";
-import img_joinProfile from "@/public/images/join-profile.png";
-
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Fourth() {
   const router = useRouter();
@@ -219,7 +215,13 @@ export default function Fourth() {
           className="profile-btn"
         >
           <span className="profile-area">
-            <Image src={img_joinProfile} alt="profile" priority />
+            <Image
+            src="/images/join-profile.png"
+            width={281}
+            height={62}
+            alt="join-profile"
+            priority={true}
+          />
           </span>
           <FontAwesomeIcon
             icon={faPlusCircle}

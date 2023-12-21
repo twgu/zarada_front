@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import MembershipHeader from "@/app/components/MembershipHeader";
 import { useRouter } from "next/navigation";
+
+import MembershipHeader from "@/app/components/MembershipHeader";
 
 export default function First() {
   const router = useRouter();

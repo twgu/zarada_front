@@ -19,3 +19,9 @@ PS \zarada_front> npm i sass
 PS \zarada_front> npm install axios
 PS \zarada_front> npm install --save @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
 PS \zarada_front> npm install react-daum-postcode
+
+# 경로 설정 규칙
+# 1. .css : "../../public/images/"
+# 2. import : "@/app/components/"
+# 3. <Image> : "/images/"
+# 4. router.push() : "/pages/"
